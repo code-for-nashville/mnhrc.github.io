@@ -164,7 +164,7 @@ var translated = {
                              '',
                              '',
                              ''),
-  costSelect8: manyLanguages('$60',
+  costSelect8: manyLanguages('$60+',
                              '',
                              '',
                              ''),
