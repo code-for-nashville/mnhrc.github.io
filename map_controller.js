@@ -23,11 +23,26 @@ var spreadsheetId = '1aI16jUKAHFLmjKXtjI2nCYltDWa1awCFZ2Kt1IhhbZ4';
 // Should be simple enough to extend to even more languages,
 // but it might be beneficial to factor out to dynamic
 // language requesting and translation.
+// Adding more languages is simple, but please do not mess up
+// the order it already is in, it will break the `translated`
+// object. Please use ISO639-2 abbreviations.
 function manyLanguages(english, spanish, french, arabic) {
   return { en: english, es: spanish, fr: french, ar: arabic };
 }
 
+// Do not even overwrite from headers.
+// English is the only language that is fully filled out.
+var defaultLanguageFallback = 'en';
+
+// This can be replaced by header values.
+// It is the value that is used when populating the text.
 var currentLanguage = 'en';
+
+// Every object key here maps directly to a tag that has the
+// attribute id="ml-foobar". Use `manyLanguages` to populate
+// the languages. Leaving languages unsupplied or empty string
+// will result in a fallback to 'en' (defaultLanguageFallback)
+// TODO: Still needs translation work.
 var translated = {
   aboutp1: manyLanguages('wESL (We ESL) is a platform for easily finding ESL (English as a Second Language) classes in Nashville, TN. All organizations that offer ESL classes are listed on the map. You can click on the map location for more information about the organizations and the classes they offer. If you would like your organization\'s classes to be added to the platform, click on the link the in the left column titled "Submission Form."',
                          '',
@@ -37,7 +52,7 @@ var translated = {
                          '',
                          '',
                          ''),
-  aboutp2: manyLanguages('For more info about the Metro Human Relations Commission, please visit <a href="http://www.1City4AllPeople.com" target="_blank">www.1City4AllPeople.com</a>, <a href="http://www.Facebook.com/NashMHRC" target="_blank">www.Facebook.com/NashMHRC</a>, or <a href="http://www.twitter.com/1City4AllPeople" target="_blank">www.twitter.com/1City4AllPeople</a>.',
+  aboutp3: manyLanguages('For more info about the Metro Human Relations Commission, please visit <a href="http://www.1City4AllPeople.com" target="_blank">www.1City4AllPeople.com</a>, <a href="http://www.Facebook.com/NashMHRC" target="_blank">www.Facebook.com/NashMHRC</a>, or <a href="http://www.twitter.com/1City4AllPeople" target="_blank">www.twitter.com/1City4AllPeople</a>.',
                          '',
                          '',
                          ''),
@@ -524,4 +539,18 @@ function updateMap() {
     // If the popup is visible, we'll want to update that too.
     updatePopup();
     hidePopup();
+}
+
+// Programatically populate all text on the page with the new language.
+// All tags with id="ml-foobar" will be populated with text from
+// translated['foobar'], falling back on translated['foobar']['en']
+// (defaultLanguageFallback) if the language is not implemented yet for
+// that tag.
+function populateText(lang) {
+  if (lang) { currentLanguage = lang; }
+  Object.keys(translated).forEach(function(key) {
+    var text = translated[key][currentLanguage] ||
+               translated[key][defaultLanguageFallback];
+    $('#ml-' + key).html(text);
+  });
 }
