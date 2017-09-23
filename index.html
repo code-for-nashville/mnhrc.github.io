@@ -97,31 +97,31 @@
                 <li class="cost" title="Select Cost">
                     <div class="select_wrapper">
                         <select id="cost_menu" class="filter_menu">
-                            <option value="">Any</option>
-                            <option value="free">Free</option>
-                            <option value="10">$10</option>
-                            <option value="20">$20</option>
-                            <option value="30">$30</option>
-                            <option value="40">$40</option>
-                            <option value="50">$50</option>
-                            <option value="60">$60+</option>
+                            <option value="" id="ml-costSelect1">Any</option>
+                            <option value="free" id="ml-costSelect2">Free</option>
+                            <option value="10" id="ml-costSelect3">$10</option>
+                            <option value="20" id="ml-costSelect4">$20</option>
+                            <option value="30" id="ml-costSelect5">$30</option>
+                            <option value="40" id="ml-costSelect6">$40</option>
+                            <option value="50" id="ml-costSelect7">$50</option>
+                            <option value="60" id="ml-costSelect8">$60+</option>
                         </select>
                     </div>
                 </li>
             </ul>
-            To submit a class click <a href="https://docs.google.com/a/jasonamyers.com/forms/d/1yQP_1ph3Rx3VNEIiHvYny9QtoDClMXNa7F1ro0srFjA/viewform">here.</a>
+            <span id="ml-classSubmit">To submit a class click <a href="https://docs.google.com/a/jasonamyers.com/forms/d/1yQP_1ph3Rx3VNEIiHvYny9QtoDClMXNa7F1ro0srFjA/viewform">here.</a></span>
             </div>
             <div id="search_button">
                 <button onclick="showHideLocations()"value="SEARCH" id="search_button">SEARCH</button>
             </div>
             <div id="aboutLink">
-                About this App
+                <span id="ml-aboutLink">About this App</span>
             </div>
         </div>
         <div id="map-canvas"></div>
         <div id="location-popup">
             <div class="back_top" id="course-back">
-                <button class="back_button" style="width: 100%" onclick="toggleDetails();">&lt; Back to Locations</button>
+                <button class="back_button" style="width: 100%" onclick="toggleDetails();" id="ml-popupBack">&lt; Back to Locations</button>
             </div>
             <div class="hide" onclick="hidePopup()"></div>
             <div class="organization" data-bind="text: organization"></div>
@@ -133,18 +133,18 @@
             <div class="description" data-bind="text: faithBased"></div>
 
             <hr>
-            <div class="class_at">Classes held at:</div>
+            <div class="class_at" id="ml-popupTitleClasses">Classes held at:</div>
             <div class="class_address" data-bind="text: classAddress"></div>
             <hr>
             <div class="course_wrapper">
                 <table width="100%">
                     <thead>
                         <tr>
-                            <th width="40%">Class</th>
-                            <th width="10%">Date</th>
-                            <th width="10%">Schedule</th>
-                            <th width="20%">Curriculum</th>
-                            <th width="10%">Fee</th>
+                            <th width="40%" id="ml-popupTitleClass">Class</th>
+                            <th width="10%" id="ml-popupTitleDate">Date</th>
+                            <th width="10%" id="ml-popupTitleSchedule">Schedule</th>
+                            <th width="20%" id="ml-popupTitleCurriculum">Curriculum</th>
+                            <th width="10%" id="ml-popupTitleFee">Fee</th>
 
                         </tr>
                     </thead>
@@ -162,12 +162,12 @@
         </div>
         <div id="location-list">
             <div class="back_top" id="location-back">
-                <button class="back_button" onclick="showHideLocations()">&lt; Back to Search</button>
+                <button class="back_button" onclick="showHideLocations()" id="ml-searchBack">&lt; Back to Search</button>
             </div>
             <table width="100%" id="location_table">
                 <thead>
                     <tr>
-                        <th align="left">Locations</th>
+                        <th align="left" id="ml-locations">Locations</th>
                     </tr>
                 </thead>
                 <tbody >
