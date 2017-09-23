@@ -548,7 +548,6 @@ function updateMap() {
 // that tag.
 function populateText(lang) {
   if (lang) { currentLanguage = lang; }
-  console.log('populating ' + currentLanguage);
   Object.keys(translated).forEach(function(key) {
     var text = translated[key][currentLanguage] ||
                translated[key][defaultLanguageFallback];
