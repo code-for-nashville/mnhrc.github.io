@@ -19,6 +19,66 @@ var apiKey = 'AIzaSyC8YkrMM7NEO59ERQ2OBkE6I3QfLyVmN64';
 // sheet shared with me (nick), seemingly controlled by MNHRC
 var spreadsheetId = '1aI16jUKAHFLmjKXtjI2nCYltDWa1awCFZ2Kt1IhhbZ4';
 
+// Multi-lingual support of local text.
+// Should be simple enough to extend to even more languages,
+// but it might be beneficial to factor out to dynamic
+// language requesting and translation.
+function manyLanguages(english, spanish, french, arabic) {
+  return { en: english, es: spanish, fr: french, ar: arabic };
+}
+
+var currentLanguage = 'en';
+var translated = {
+  aboutp1: manyLanguages('wESL (We ESL) is a platform for easily finding ESL (English as a Second Language) classes in Nashville, TN. All organizations that offer ESL classes are listed on the map. You can click on the map location for more information about the organizations and the classes they offer. If you would like your organization\'s classes to be added to the platform, click on the link the in the left column titled "Submission Form."',
+                         '',
+                         '',
+                         ''),
+  aboutp2: manyLanguages('The wESL platform is offered and maintained by the Metro Human Relations Commission. If you have any questions, please email us at <a href="mailto:info@eslmap.com?subject=wESL" target="_blank">info@eslmap.com</a> and follow <a href="https://www.twitter.com/eslmap" target="_blank">@ESLmap</a> on Twitter for updates about the platform.',
+                         '',
+                         '',
+                         ''),
+  aboutp2: manyLanguages('For more info about the Metro Human Relations Commission, please visit <a href="http://www.1City4AllPeople.com" target="_blank">www.1City4AllPeople.com</a>, <a href="http://www.Facebook.com/NashMHRC" target="_blank">www.Facebook.com/NashMHRC</a>, or <a href="http://www.twitter.com/1City4AllPeople" target="_blank">www.twitter.com/1City4AllPeople</a>.',
+                         '',
+                         '',
+                         ''),
+  navTitle: manyLanguages('Davidson County English Language Courses',
+                          '',
+                          '',
+                          ''),
+  daySelect1: manyLanguages('Next 30 Days',
+                            '',
+                            '',
+                            ''),
+  daySelect2: manyLanguages('30 - 60 Days',
+                            '',
+                            '',
+                            ''),
+  daySelect3: manyLanguages('60 - 90 Days',
+                            '',
+                            '',
+                            ''),
+  scheduleSelect1: manyLanguages('Any',
+                                 '',
+                                 '',
+                                 ''),
+  scheduleSelect2: manyLanguages('Semester',
+                                 '',
+                                 '',
+                                 ''),
+  scheduleSelect3: manyLanguages('Trimester',
+                                 '',
+                                 '',
+                                 ''),
+  scheduleSelect4: manyLanguages('Quarterly',
+                                 '',
+                                 '',
+                                 ''),
+  scheduleSelect5: manyLanguages('Ongoing',
+                                 '',
+                                 '',
+                                 '')
+};
+
 // personal copy of sheet (nick@codefornashville.org)
 //var spreadsheetId = '1fnAs8ZrPcNGP6LTDyV9ajiP2grdpNCiPQlSdCVFM7ug';
 
