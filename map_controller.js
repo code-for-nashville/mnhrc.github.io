@@ -19,16 +19,64 @@ var apiKey = 'AIzaSyC8YkrMM7NEO59ERQ2OBkE6I3QfLyVmN64';
 // sheet shared with me (nick), seemingly controlled by MNHRC
 var spreadsheetId = '1aI16jUKAHFLmjKXtjI2nCYltDWa1awCFZ2Kt1IhhbZ4';
 
+// function manyLanguages(english, spanish, french, arabic) {
+//   return { en: english, es: spanish, fr: french, ar: arabic };
+// }
+
 // Multi-lingual support of local text.
 // Should be simple enough to extend to even more languages,
-// but it might be beneficial to factor out to dynamic
-// language requesting and translation.
-// Adding more languages is simple, but please do not mess up
-// the order it already is in, it will break the `translated`
-// object. Please use ISO639-2 abbreviations.
-function manyLanguages(english, spanish, french, arabic) {
-  return { en: english, es: spanish, fr: french, ar: arabic };
-}
+// just copy the `translated.en` object, replace the values, and
+// rename the language. Please use ISO639-2 abbreviations.
+// Every object key here maps directly to a tag that has the
+// attribute id="ml-foobar". Leaving keys unsupplied or empty string
+// will result in a fallback to 'en' (defaultLanguageFallback)
+// TODO: Still needs translation work.
+var translated = {
+  en: {
+    aboutp1: 'wESL (We ESL) is a platform for easily finding ESL (English as a Second Language) classes in Nashville, TN. All organizations that offer ESL classes are listed on the map. You can click on the map location for more information about the organizations and the classes they offer. If you would like your organization\'s classes to be added to the platform, click on the link the in the left column titled "Submission Form."',
+    aboutp2: 'The wESL platform is offered and maintained by the Metro Human Relations Commission. If you have any questions, please email us at <a href="mailto:info@eslmap.com?subject=wESL" target="_blank">info@eslmap.com</a> and follow <a href="https://www.twitter.com/eslmap" target="_blank">@ESLmap</a> on Twitter for updates about the platform.',
+    aboutp3: 'For more info about the Metro Human Relations Commission, please visit <a href="http://www.1City4AllPeople.com" target="_blank">www.1City4AllPeople.com</a>, <a href="http://www.Facebook.com/NashMHRC" target="_blank">www.Facebook.com/NashMHRC</a>, or <a href="http://www.twitter.com/1City4AllPeople" target="_blank">www.twitter.com/1City4AllPeople</a>.',
+    navTitle: 'Davidson County English Language Courses',
+    daySelect1: 'Next 30 Days',
+    daySelect2: '30 - 60 Days',
+    daySelect3: '60 - 90 Days',
+    scheduleSelect1: 'Any',
+    scheduleSelect2: 'Semester',
+    scheduleSelect3: 'Trimester',
+    scheduleSelect4: 'Quarterly',
+    scheduleSelect5: 'Ongoing',
+    levelSelect1: 'Any',
+    levelSelect2: 'Pre-Literate',
+    levelSelect3: 'Intro',
+    levelSelect4: 'Level 1',
+    levelSelect5: 'Level 2',
+    levelSelect6: 'Level 3',
+    levelSelect7: 'Level 4',
+    levelSelect8: 'Level 5',
+    levelSelect9: 'Conversation',
+    levelSelect10: 'GED',
+    levelSelect11: 'Citizenship',
+    costSelect1: 'Any',
+    costSelect2: 'Free',
+    costSelect3: '$10',
+    costSelect4: '$20',
+    costSelect5: '$30',
+    costSelect6: '$40',
+    costSelect7: '$50',
+    costSelect8: '$60+',
+    classSubmit: 'To submit a class click <a href="https://docs.google.com/a/jasonamyers.com/forms/d/1yQP_1ph3Rx3VNEIiHvYny9QtoDClMXNa7F1ro0srFjA/viewform">here.</a>',
+    aboutLink: 'About this App',
+    popupBack: '&lt; Back to Locations',
+    popupTitleClasses: 'Classes held at:',
+    popupTitleClass: 'Class',
+    popupTitleDate: 'Date',
+    popupTitleSchedule: 'Schedule',
+    popupTitleCurriculum: 'Curriculum',
+    popupTitleFee: 'Fee',
+    searchBack: '&lt; Back to Search',
+    locations: 'Locations'
+  }
+};
 
 // Do not even overwrite from headers.
 // English is the only language that is fully filled out.
@@ -37,182 +85,6 @@ var defaultLanguageFallback = 'en';
 // This can be replaced by header values.
 // It is the value that is used when populating the text.
 var currentLanguage = 'en';
-
-// Every object key here maps directly to a tag that has the
-// attribute id="ml-foobar". Use `manyLanguages` to populate
-// the languages. Leaving languages unsupplied or empty string
-// will result in a fallback to 'en' (defaultLanguageFallback)
-// TODO: Still needs translation work.
-var translated = {
-  aboutp1: manyLanguages('wESL (We ESL) is a platform for easily finding ESL (English as a Second Language) classes in Nashville, TN. All organizations that offer ESL classes are listed on the map. You can click on the map location for more information about the organizations and the classes they offer. If you would like your organization\'s classes to be added to the platform, click on the link the in the left column titled "Submission Form."',
-                         '',
-                         '',
-                         ''),
-  aboutp2: manyLanguages('The wESL platform is offered and maintained by the Metro Human Relations Commission. If you have any questions, please email us at <a href="mailto:info@eslmap.com?subject=wESL" target="_blank">info@eslmap.com</a> and follow <a href="https://www.twitter.com/eslmap" target="_blank">@ESLmap</a> on Twitter for updates about the platform.',
-                         '',
-                         '',
-                         ''),
-  aboutp3: manyLanguages('For more info about the Metro Human Relations Commission, please visit <a href="http://www.1City4AllPeople.com" target="_blank">www.1City4AllPeople.com</a>, <a href="http://www.Facebook.com/NashMHRC" target="_blank">www.Facebook.com/NashMHRC</a>, or <a href="http://www.twitter.com/1City4AllPeople" target="_blank">www.twitter.com/1City4AllPeople</a>.',
-                         '',
-                         '',
-                         ''),
-  navTitle: manyLanguages('Davidson County English Language Courses',
-                          '',
-                          '',
-                          ''),
-  daySelect1: manyLanguages('Next 30 Days',
-                            '',
-                            '',
-                            ''),
-  daySelect2: manyLanguages('30 - 60 Days',
-                            '',
-                            '',
-                            ''),
-  daySelect3: manyLanguages('60 - 90 Days',
-                            '',
-                            '',
-                            ''),
-  scheduleSelect1: manyLanguages('Any',
-                                 '',
-                                 '',
-                                 ''),
-  scheduleSelect2: manyLanguages('Semester',
-                                 '',
-                                 '',
-                                 ''),
-  scheduleSelect3: manyLanguages('Trimester',
-                                 '',
-                                 '',
-                                 ''),
-  scheduleSelect4: manyLanguages('Quarterly',
-                                 '',
-                                 '',
-                                 ''),
-  scheduleSelect5: manyLanguages('Ongoing',
-                                 '',
-                                 '',
-                                 ''),
-  levelSelect1: manyLanguages('Any',
-                              '',
-                              '',
-                              ''),
-  levelSelect2: manyLanguages('Pre-Literate',
-                              '',
-                              '',
-                              ''),
-  levelSelect3: manyLanguages('Intro',
-                              '',
-                              '',
-                              ''),
-  levelSelect4: manyLanguages('Level 1',
-                              '',
-                              '',
-                              ''),
-  levelSelect5: manyLanguages('Level 2',
-                              '',
-                              '',
-                              ''),
-  levelSelect6: manyLanguages('Level 3',
-                              '',
-                              '',
-                              ''),
-  levelSelect7: manyLanguages('Level 4',
-                              '',
-                              '',
-                              ''),
-  levelSelect8: manyLanguages('Level 5',
-                              '',
-                              '',
-                              ''),
-  levelSelect9: manyLanguages('Conversation',
-                              '',
-                              '',
-                              ''),
-  levelSelect10: manyLanguages('GED',
-                               '',
-                               '',
-                               ''),
-  levelSelect11: manyLanguages('Citizenship',
-                               '',
-                               '',
-                               ''),
-  costSelect1: manyLanguages('Any',
-                             '',
-                             '',
-                             ''),
-  costSelect2: manyLanguages('Free',
-                             '',
-                             '',
-                             ''),
-  costSelect3: manyLanguages('$10',
-                             '',
-                             '',
-                             ''),
-  costSelect4: manyLanguages('$20',
-                             '',
-                             '',
-                             ''),
-  costSelect5: manyLanguages('$30',
-                             '',
-                             '',
-                             ''),
-  costSelect6: manyLanguages('$40',
-                             '',
-                             '',
-                             ''),
-  costSelect7: manyLanguages('$50',
-                             '',
-                             '',
-                             ''),
-  costSelect8: manyLanguages('$60+',
-                             '',
-                             '',
-                             ''),
-  classSubmit: manyLanguages('To submit a class click <a href="https://docs.google.com/a/jasonamyers.com/forms/d/1yQP_1ph3Rx3VNEIiHvYny9QtoDClMXNa7F1ro0srFjA/viewform">here.</a>',
-                             '',
-                             '',
-                             ''),
-  aboutLink: manyLanguages('About this App',
-                           '',
-                           '',
-                           ''),
-  popupBack: manyLanguages('&lt; Back to Locations',
-                           '',
-                           '',
-                           ''),
-  popupTitleClasses: manyLanguages('Classes held at:',
-                                   '',
-                                   '',
-                                   ''),
-  popupTitleClass: manyLanguages('Class',
-                                 '',
-                                 '',
-                                 ''),
-  popupTitleDate: manyLanguages('Date',
-                                '',
-                                '',
-                                ''),
-  popupTitleSchedule: manyLanguages('Schedule',
-                                    '',
-                                    '',
-                                    ''),
-  popupTitleCurriculum: manyLanguages('Curriculum',
-                                      '',
-                                      '',
-                                      ''),
-  popupTitleFee: manyLanguages('Fee',
-                               '',
-                               '',
-                               ''),
-  searchBack: manyLanguages('&lt; Back to Search',
-                            '',
-                            '',
-                            ''),
-  locations: manyLanguages('Locations',
-                           '',
-                           '',
-                           '')
-};
 
 // personal copy of sheet (nick@codefornashville.org)
 //var spreadsheetId = '1fnAs8ZrPcNGP6LTDyV9ajiP2grdpNCiPQlSdCVFM7ug';
@@ -543,14 +415,15 @@ function updateMap() {
 
 // Programatically populate all text on the page with the new language.
 // All tags with id="ml-foobar" will be populated with text from
-// translated['foobar'], falling back on translated['foobar']['en']
+// translated['foobar'], falling back on translated['en']['foobar']
 // (defaultLanguageFallback) if the language is not implemented yet for
 // that tag.
 function populateText(lang) {
   if (lang) { currentLanguage = lang; }
-  Object.keys(translated).forEach(function(key) {
-    var text = translated[key][currentLanguage] ||
-               translated[key][defaultLanguageFallback];
+  var defaultTable = translated[defaultLanguageFallback];
+  var table = translated[currentLanguage] || defaultTable;
+  Object.keys(defaultTable).forEach(function(key) {
+    var text = table[key] || defaultTable[key];
     $('#ml-' + key).html(text);
   });
 }
